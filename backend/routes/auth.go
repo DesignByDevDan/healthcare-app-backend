@@ -1,27 +1,21 @@
 package routes
 
 import (
+	"github.com/gin-gonic/gin"
 	"healthcare-app/controllers"
 	"healthcare-app/middleware"
-
-	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
-	router := gin.Default()
-
+func SetupRouter(router *gin.Engine) {
 	// Public routes
 	router.POST("/signup", controllers.Signup)
 	router.POST("/login", controllers.Login)
 
-	// Protected routes (require a valid JWT token)
+	// Protected routes (require valid JWT token)
 	protected := router.Group("/api")
-	protected.Use(middleware.JWTAuthMiddleware()) // Apply JWT middleware
+	protected.Use(middleware.JWTAuthMiddleware()) // Apply JWT Middleware
 
-	// Add the protected resource route
 	protected.GET("/protected-resource", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "Access granted to protected resource!"})
 	})
-
-	return router
 }
