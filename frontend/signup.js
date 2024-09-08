@@ -1,43 +1,29 @@
-document.getElementById('signup-form').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Prevent the form from submitting the traditional way
+const backendUrl = "https://healthcare-app-backend.onrender.com";
 
-    // Get form values
-    const name = document.getElementById('signup-name').value;
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
-
-    // Password validation
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-    if (!passwordRegex.test(password)) {
-        alert('Password must be at least 8 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character.');
-        return;
-    }
+document.getElementById("signup-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     try {
-        // Make POST request to signup endpoint
-        const response = await fetch('http://localhost:8080/signup', {
-            method: 'POST',
+        const response = await fetch(`${backendUrl}/signup`, {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password
-            })
+            body: JSON.stringify({ name, email, password }),
         });
 
-        const result = await response.json();
+        const data = await response.json();
 
         if (response.ok) {
-            // Success alert message
-            alert('Signup successful! You can now log in.');
+            alert("Signup successful!");
         } else {
-            // Error alert message
-            alert(`Signup failed: ${result.error}`);
+            alert(`Error: ${data.error}`);
         }
     } catch (error) {
-        console.error('Error during signup:', error);
-        alert('An error occurred during signup. Please try again later.');
+        alert("An error occurred during signup. Please try again later.");
     }
 });

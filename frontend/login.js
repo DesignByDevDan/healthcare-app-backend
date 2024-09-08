@@ -1,36 +1,30 @@
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Prevent the form from submitting the traditional way
+const backendUrl = "https://healthcare-app-backend.onrender.com";
 
-    // Get form values
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+document.getElementById("login-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
 
     try {
-        // Make POST request to login endpoint
-        const response = await fetch('http://localhost:8080/login', {
-            method: 'POST',
+        const response = await fetch(`${backendUrl}/login`, {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
+            body: JSON.stringify({ email, password }),
         });
 
-        const result = await response.json();
+        const data = await response.json();
 
         if (response.ok) {
-            // Store the JWT token in localStorage (or cookies if preferred)
-            localStorage.setItem('token', result.token);
-            // Success alert message
-            alert('Login successful!');
+            alert("Login successful!");
+            localStorage.setItem("token", data.token); // Store token locally
+            window.location.href = "protected.html"; // Redirect to protected resource page
         } else {
-            // Error alert message
-            alert(`Login failed: ${result.error}`);
+            alert(`Error: ${data.error}`);
         }
     } catch (error) {
-        console.error('Error during login:', error);
-        alert('An error occurred during login. Please try again later.');
+        alert("An error occurred during login. Please try again later.");
     }
 });
