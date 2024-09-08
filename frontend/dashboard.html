@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Dashboard</h1>
+    </header>
+
+    <main>
+        <section class="profile-section">
+            <h2>Your Profile</h2>
+            <p>Name: <span id="profile-name"></span></p>
+            <p>Email: <span id="profile-email"></span></p>
+            <button id="edit-profile-btn">Edit Profile</button>
+        </section>
+
+        <section class="appointments-section">
+            <h2>Your Appointments</h2>
+            <ul id="appointments-list">
+                <!-- Appointments will be loaded here -->
+            </ul>
+            <button id="book-appointment-btn">Book Appointment</button>
+        </section>
+
+        <section class="prescriptions-section">
+            <h2>Your Prescriptions</h2>
+            <ul id="prescriptions-list">
+                <!-- Prescriptions will be loaded here -->
+            </ul>
+        </section>
+
+        <section class="history-section">
+            <h2>Medical History</h2>
+            <ul id="medical-history-list">
+                <!-- Medical history will be loaded here -->
+            </ul>
+        </section>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
